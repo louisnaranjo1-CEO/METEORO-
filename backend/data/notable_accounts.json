@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "description": "Notable public figures, handles, and bio/text keywords evaluated by optional X Catalyst Radar.",
+  "handles": [
+    "elonmusk",
+    "realdonaldtrump",
+    "aeyakovenko",
+    "rajgokal",
+    "cz_binance",
+    "brian_armstrong",
+    "vitalikbuterin",
+    "saylor",
+    "cathiedwood",
+    "mrbeast"
+  ],
+  "keywords": [
+    "president",
+    "senator",
+    "governor",
+    "politician",
+    "musician",
+    "rapper",
+    "artist",
+    "singer",
+    "actor",
+    "billionaire",
+    "founder",
+    "ceo"
+  ]
+}

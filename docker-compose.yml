@@ -1,0 +1,48 @@
+services:
+  bot-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: meteoro-bot-api
+    env_file:
+      - .env
+    environment:
+      RUN_BOT: "true"
+      API_HOST: "0.0.0.0"
+      API_PORT: "8000"
+      DATABASE_PATH: "data/desk.db"
+      LOG_DIR: "logs"
+    volumes:
+      - ./backend/data:/app/data
+      - ./backend/logs:/app/logs
+    expose:
+      - "8000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: meteoro-dashboard
+    depends_on:
+      bot-api:
+        condition: service_healthy
+    ports:
+      - "${DASHBOARD_PORT:-8080}:80"
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "3"
